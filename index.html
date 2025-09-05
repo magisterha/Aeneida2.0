@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virgilio, Aeneis - Liber I (Interactivo)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* --- ESTILOS GLOBALES Y DEL TEMA MEDIEVAL --- */
+        body { background-color: #3d2c1d; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem 1rem; color: #4a3a2a; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .page-container { background-color: #fdf5e6; background-image: url('https://www.transparenttextures.com/patterns/old-wall.png'); border: 1px solid #c9b79c; box-shadow: 0 8px 25px rgba(0,0,0,0.5); max-width: 1200px; width: 100%; border-radius: 4px; }
+        /* --- ESTILOS DE LA VISTA DE ÍNDICE --- */
+        #index-view .index-container { padding: 2.5rem 3rem; text-align: center; }
+        #index-view h1 { font-family: 'IM Fell English', 'Georgia', serif; font-size: 3.5rem; color: #6d4c35; }
+        #index-view h2 { font-family: 'IM Fell English', 'Georgia', serif; font-size: 1.75rem; color: #8c785c; margin-bottom: 2rem; }
+        .chapter-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; text-align: left; }
+        .chapter-grid li a { text-decoration: none; color: #4a3a2a; font-size: 1.1rem; font-weight: 600; padding: 0.75rem 1rem; border: 1px solid #d1c4b0; border-radius: 0.25rem; transition: all 0.2s; display: flex; flex-direction: column; height: 100%; background-color: rgba(255, 255, 255, 0.5); font-family: 'IM Fell English', 'Georgia', serif; cursor: pointer; }
+        .chapter-grid li a:hover { background-color: #f0e6d8; color: #3d2c1d; border-color: #8c785c; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .chapter-grid .chapter-title { font-size: 0.95rem; font-weight: normal; opacity: 0.8; margin-top: 0.25rem; color: #8c785c; }
+        /* --- ESTILOS DE LA VISTA DE ANÁLISIS --- */
+        .textum-classicum, #context-content { font-family: 'IM Fell English', 'Georgia', serif; font-size: 1.25rem; line-height: 1.8; color: #5c4d3c; }
+        #analysis-view h1, #analysis-view h2, #analysis-view h3 { font-family: 'IM Fell English', 'Georgia', serif; font-weight: bold; color: #6d4c35; }
+        #analysis-view .verbum { cursor: pointer; transition: color .2s ease-in-out; border-bottom: 1px dotted transparent; }
+        #analysis-view .verbum:hover { background-color: rgba(181, 152, 114, 0.2); border-bottom: 1px dotted #8c785c; }
+        #analysis-view .activus { background-color: rgba(181, 152, 114, 0.4) !important; color: #3d2c1d !important; font-weight: bold; }
+        #analysis-view .verse-number { color: #9a3412; font-weight: bold; }
+        #analysis-view .divider { border: 0; height: 1px; background-image: linear-gradient(to right, rgba(109, 76, 53, 0), rgba(109, 76, 53, 0.75), rgba(109, 76, 53, 0)); margin: 2rem 0; }
+        #analysis-view details > summary { list-style: none; cursor: pointer; }
+        #analysis-view details > summary::-webkit-details-marker { display: none; }
+        #analysis-view details > summary::before { content: '▶'; margin-right: 0.5rem; font-size: 0.8em; transition: transform 0.2s; color: #8c785c;}
+        #analysis-view details[open] > summary { color: #3d2c1d; }
+        #analysis-view details[open] > summary::before { transform: rotate(90deg); }
+        #analysis-view details .details-content { padding-left: 1.2rem; margin-top: 0.5rem; border-left: 1px solid #d1c4b0; }
+        /* Layout responsivo para la VISTA DE ANÁLISIS */
+        .main-layout { padding: 1.5rem; }
+        #marginalia-sinistra { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #d1c4b0; }
+        @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; padding: 2.5rem 3rem; } #marginalia-sinistra { margin-top: 0; padding-top: 0; border-top: none; position: sticky; top: 2.5rem; height: calc(100vh - 5rem); border-left: 1px solid #d1c4b0; padding-left: 2rem; overflow-y: auto; } }
+        /* --- ESTILOS COMUNES --- */
+        .language-switcher { display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto 1.5rem auto; }
+        .lang-btn { flex-grow: 1; padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.875rem; }
+        .lang-btn:hover { background-color: #e9dcc9; }
+        .lang-btn.active-lang { background-color: #6d4c35; color: #fdf5e6; border-color: #6d4c35; }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <div id="index-view">
+            <div class="index-container">
+                <div id="language-switcher-index" class="language-switcher"></div>
+                <h1 id="main-title-index"></h1>
+                <h2 id="subtitle-index"></h2>
+                <ul class="chapter-grid"></ul>
+            </div>
+        </div>
+
+        <div id="analysis-view" class="hidden">
+            </div>
+    </div>
+
+    <script src="js/data/libro1-capitulos.js"></script>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
