@@ -1,0 +1,77 @@
+registerChapterData(3, {
+    context: {
+        es: { 
+            title: "Contexto (Versos 64-80)", 
+            content: "Tras escuchar la promesa de Juno, Eolo accede a su petición. Golpea el costado de la montaña hueca con su lanza, abriendo una puerta para los vientos. Estos se precipitan en un torbellino unificado, arrasando la tierra y abatiéndose sobre el mar. Los vientos del Este, Sur y Suroeste lo revuelven todo desde las profundidades, levantando olas gigantescas hacia la costa. El caos se desata en el mar, un preludio a la desesperación de Eneas."
+        },
+        en: { 
+            title: "Context (Verses 64-80)", 
+            content: "After hearing Juno's promise, Aeolus agrees to her request. He strikes the side of the hollow mountain with his spear, opening a gate for the winds. They rush out in a unified whirlwind, sweeping over the land and bearing down upon the sea. The East, South, and Southwest winds churn everything from the depths, rolling vast waves to the shores. Chaos is unleashed upon the sea, a prelude to Aeneas's despair."
+        },
+        zh: { 
+            title: "背景 (第 64-80 行)", 
+            content: "聽了朱諾的承諾後，埃俄羅斯同意了她的請求。他用長矛敲擊空心山的一側，為風打開了一扇門。它們如統一的旋風般衝出，席捲大地，撲向海洋。東風、南風和西南風從深處攪動一切，將巨浪推向岸邊。海上混亂不堪，預示著埃涅阿斯的絕望。"
+        }
+    },
+    textus: {
+        capitula: [
+            { "numerus": 64, "orationes": [ { "original_lat": "Haec ubi dicta dedit, cavum conversa cuspide montem", "translationes": { "es": "Cuando hubo dado estas palabras, habiendo vuelto su lanza, el hueco monte", "en": "When she had given these words, having turned her spear, the hollow mountain", "zh": "當她說完這些話，轉過矛頭，將空心山" }, "verba": [
+                {"textus": "dicta", "lemma": "dico", "morphologia": "part., n., pl., acc., pf. pas.", "syntaxis": "Participio sustantivado, OD de 'dedit'", "translatio": {"es": "las palabras dichas", "en": "the words having been said", "zh": "說完的話"}},
+                {"textus": "dedit,", "lemma": "do", "morphologia": "v., 3ª pers., sg., perf., ind.", "syntaxis": "Verbo", "translatio": {"es": "dio", "en": "she gave", "zh": "說完"}},
+                {"textus": "conversa", "lemma": "converto", "morphologia": "part., f., sg., abl., pf. pas.", "syntaxis": "Participio en Ablativo Absoluto", "translatio": {"es": "habiendo vuelto", "en": "having been turned", "zh": "轉過"}}
+            ] } ] },
+            { "numerus": 65, "orationes": [ { "original_lat": "impulit in latus: ac venti, velut agmine facto,", "translationes": { "es": "golpeó en el costado: y los vientos, como formado un ejército,", "en": "she struck on its side: and the winds, as if an army had been formed,", "zh": "擊向其側：於是眾風，彷彿列隊成軍，" }, "verba": [
+                {"textus": "impulit", "lemma": "impello", "morphologia": "v., 3ª pers., sg., perf., ind.", "syntaxis": "Verbo", "translatio": {"es": "golpeó", "en": "he struck", "zh": "擊向"}},
+                {"textus": "facto,", "lemma": "facio", "morphologia": "part., n., sg., abl., pf. pas.", "syntaxis": "Participio en Ablativo Absoluto", "translatio": {"es": "formado", "en": "having been formed", "zh": "列隊成"}}
+            ] } ] },
+            { "numerus": 66, "orationes": [ { "original_lat": "qua data porta, ruunt et terras turbine perflant.", "translationes": { "es": "por donde se dio una puerta, se precipitan y las tierras con un torbellino barren.", "en": "where a gate was given, rush forth and blow over the lands in a whirlwind.", "zh": "從敞開的門衝出，捲起旋風吹遍大地。" }, "verba": [
+                {"textus": "data", "lemma": "do", "morphologia": "part., f., sg., nom., pf. pas.", "syntaxis": "Participio concertado con 'porta' (con 'est' elidido)", "translatio": {"es": "se dio", "en": "was given", "zh": "敞開"}},
+                {"textus": "ruunt", "lemma": "ruo", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "se precipitan", "en": "they rush forth", "zh": "衝出"}},
+                {"textus": "perflant.", "lemma": "perflo", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "barren", "en": "they blow over", "zh": "吹遍"}}
+            ] } ] },
+            { "numerus": 67, "orationes": [ { "original_lat": "Incubuere mari, totumque a sedibus imis", "translationes": { "es": "Se abatieron sobre el mar, y todo (el mar) desde sus más profundos cimientos", "en": "They fell upon the sea, and the whole (sea) from its lowest depths", "zh": "它們撲向大海，從最深的海床" }, "verba": [
+                {"textus": "Incubuere", "lemma": "incumbo", "morphologia": "v., 3ª pers., pl., perf., ind.", "syntaxis": "Verbo (forma síncopa de incubuerunt)", "translatio": {"es": "se abatieron", "en": "they fell upon", "zh": "撲向"}}
+            ] } ] },
+            { "numerus": 68, "orationes": [ { "original_lat": "una Eurusque Notusque ruunt creberque procellis", "translationes": { "es": "a una el Euro y el Noto se precipitan y el Áfrico, denso en ráfagas,", "en": "together the East and South winds rush, and the Southwest, thick with squalls,", "zh": "東風、南風和充滿風暴的西南風一同衝出，" }, "verba": [
+                {"textus": "ruunt", "lemma": "ruo", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "se precipitan", "en": "they rush", "zh": "衝出"}}
+            ] } ] },
+            { "numerus": 69, "orationes": [ { "original_lat": "Africus, et vastos volvunt ad litora fluctus.", "translationes": { "es": "y enormes olas arrastran hacia las costas.", "en": "and they roll vast waves to the shores.", "zh": "將巨浪捲向岸邊。" }, "verba": [
+                {"textus": "volvunt", "lemma": "volvo", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "arrastran", "en": "they roll", "zh": "捲起"}}
+            ] } ] },
+            { "numerus": 70, "orationes": [ { "original_lat": "Insequitur clamorque virum stridorque rudentum.", "translationes": { "es": "Sigue el clamor de los hombres y el chirrido de los cabos.", "en": "There follows a clamor of men and a creaking of ropes.", "zh": "隨之而來的是人們的呼喊和繩索的吱嘎聲。" }, "verba": [
+                {"textus": "Insequitur", "lemma": "insequor", "morphologia": "v. deponente, 3ª pers., sg., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "sigue", "en": "there follows", "zh": "隨之而來"}}
+            ] } ] },
+            { "numerus": 71, "orationes": [ { "original_lat": "Eripiunt subito nubes caelumque diemque", "translationes": { "es": "De pronto las nubes arrebatan el cielo y el día", "en": "Suddenly the clouds snatch away the sky and the day", "zh": "頓時，雲層奪走了天空和白日" }, "verba": [
+                {"textus": "Eripiunt", "lemma": "eripio", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "arrebatan", "en": "they snatch away", "zh": "奪走了"}}
+            ] } ] },
+            { "numerus": 72, "orationes": [ { "original_lat": "Teucrorum ex oculis; ponto nox incubat atra.", "translationes": { "es": "de los ojos de los Teucros; sobre el mar una noche negra se cierne.", "en": "from the eyes of the Teucrians; black night broods over the sea.", "zh": "從特洛伊人的眼前；黑夜籠罩著大海。" }, "verba": [
+                {"textus": "incubat", "lemma": "incubo", "morphologia": "v., 3ª pers., sg., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "se cierne", "en": "broods over", "zh": "籠罩著"}}
+            ] } ] },
+            { "numerus": 73, "orationes": [ { "original_lat": "Intonuere poli, et crebris micat ignibus aether,", "translationes": { "es": "Tronaron los polos, y con fuegos frecuentes relampaguea el éter,", "en": "The poles thundered, and the upper air flashes with frequent fires,", "zh": "天極雷鳴，蒼穹頻繁地閃爍著電光，" }, "verba": [
+                {"textus": "Intonuere", "lemma": "intono", "morphologia": "v., 3ª pers., pl., perf., ind.", "syntaxis": "Verbo (forma síncopa de intonuerunt)", "translatio": {"es": "tronaron", "en": "thundered", "zh": "雷鳴"}},
+                {"textus": "micat", "lemma": "mico", "morphologia": "v., 3ª pers., sg., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "relampaguea", "en": "flashes", "zh": "閃爍"}}
+            ] } ] },
+            { "numerus": 74, "orationes": [ { "original_lat": "praesentemque viris intentant omnia mortem.", "translationes": { "es": "y todas las cosas anuncian a los hombres una muerte inminente.", "en": "and all things threaten the men with instant death.", "zh": "一切都向人們預示著迫在眉睫的死亡。" }, "verba": [
+                {"textus": "intentant", "lemma": "intento", "morphologia": "v., 3ª pers., pl., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "anuncian", "en": "they threaten", "zh": "預示著"}}
+            ] } ] },
+            { "numerus": 75, "orationes": [ { "original_lat": "Extemplo Aeneae solvuntur frigore membra:", "translationes": { "es": "Al instante a Eneas se le aflojan por el frío sus miembros:", "en": "Immediately Aeneas's limbs are loosened with cold:", "zh": "瞬間，埃涅阿斯的四肢因寒冷而鬆軟：" }, "verba": [
+                {"textus": "solvuntur", "lemma": "solvo", "morphologia": "v., 3ª pers., pl., pres., ind. pas.", "syntaxis": "Verbo", "translatio": {"es": "se aflojan", "en": "are loosened", "zh": "鬆軟"}}
+            ] } ] },
+            { "numerus": 76, "orationes": [ { "original_lat": "ingemit, et duplicis tendens ad sidera palmas", "translationes": { "es": "gime, y tendiendo ambas palmas a las estrellas", "en": "he groans, and stretching both palms to the stars", "zh": "他呻吟著，將雙掌伸向星辰" }, "verba": [
+                {"textus": "ingemit,", "lemma": "ingemo", "morphologia": "v., 3ª pers., sg., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "gime", "en": "he groans", "zh": "他呻吟著"}},
+                {"textus": "tendens", "lemma": "tendo", "morphologia": "part., m., sg., nom., pres.", "syntaxis": "Participio concertado con sujeto (Eneas)", "translatio": {"es": "tendiendo", "en": "stretching", "zh": "伸向"}}
+            ] } ] },
+            { "numerus": 77, "orationes": [ { "original_lat": "talia voce refert: 'O terque quaterque beati,", "translationes": { "es": "tales (palabras) con su voz expresa: 'Oh tres y cuatro veces felices,", "en": "he says such things with his voice: 'O thrice and four times blessed,", "zh": "他高聲說道：「哦，三次、四次都幸福的人啊，" }, "verba": [
+                {"textus": "refert:", "lemma": "refero", "morphologia": "v., 3ª pers., sg., pres., ind.", "syntaxis": "Verbo", "translatio": {"es": "expresa", "en": "he says", "zh": "說道"}}
+            ] } ] },
+            { "numerus": 78, "orationes": [ { "original_lat": "quis ante ora patrum Troiae sub moenibus altis", "translationes": { "es": "a quienes ante los rostros de sus padres, bajo las altas murallas de Troya,", "en": "you to whom, before the faces of your fathers, under the high walls of Troy,", "zh": "那些在父輩面前，在特洛伊高牆之下" }, "verba": [ ] } ] },
+            { "numerus": 79, "orationes": [ { "original_lat": "contigit oppetere! O Danaum fortissime gentis", "translationes": { "es": "les tocó en suerte morir! ¡Oh, de la estirpe de los Dánaos el más fuerte,", "en": "it befell to meet death! O bravest of the race of the Danaans,", "zh": "得以死去是何等幸運！哦，達奈人中最勇敢的" }, "verba": [
+                {"textus": "contigit", "lemma": "contingo", "morphologia": "v., 3ª pers., sg., perf., ind.", "syntaxis": "Verbo impersonal", "translatio": {"es": "les tocó en suerte", "en": "it befell", "zh": "得以...是何等幸運"}},
+                {"textus": "oppetere!", "lemma": "oppeto", "morphologia": "v., inf., pres.", "syntaxis": "Infinitivo, sujeto de 'contigit'", "translatio": {"es": "morir", "en": "to meet death", "zh": "死去"}}
+            ] } ] },
+            { "numerus": 80, "orationes": [ { "original_lat": "Tydide! Mene Iliacis occumbere campis", "translationes": { "es": "hijo de Tideo! ¿No pude yo yacer en los campos de Ilión", "en": "son of Tydeus! Could I not have fallen on the Ilian fields", "zh": "堤丟斯之子啊！為何我不能倒在伊利昂的平原上" }, "verba": [
+                {"textus": "occumbere", "lemma": "occumbo", "morphologia": "v., inf., pres.", "syntaxis": "Infinitivo (con 'potuisse' elidido)", "translatio": {"es": "yacer", "en": "to have fallen", "zh": "倒在"}}
+            ] } ] }
+        ]
+    }
+});
