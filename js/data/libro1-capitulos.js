@@ -24,9 +24,9 @@ const AENEIS_DATA = {
         { title: { es: "Versos 579-593: Eneas se revela a Dido", en: "Verses 579-593: Aeneas reveals himself to Dido", zh: "第 579-593 行：埃涅阿斯向狄多現身" }, corpusFile: "js/data/libro1-versos-579-593.js" },
         { title: { es: "Versos 594-612: La gratitud de Eneas", en: "Verses 594-612: Aeneas' gratitude", zh: "第 594-612 行：埃涅阿斯的感激" }, corpusFile: "js/data/libro1-versos-594-612.js" },
         { title: { es: "Versos 613-642: El banquete de bienvenida", en: "Verses 613-642: The welcome banquet", zh: "第 613-642 行：歡迎宴會" }, corpusFile: "js/data/libro1-versos-613-642.js" },
-        { title: { es: "Versos 643-694: Venus prepara el engaño de Cupido", en: "Verses 643-694: Venus prepares Cupid's deception", zh: "第 643-694 行：維納斯準備丘比特的欺騙" }, corpusFile: "js/data/libro1-versos-643-694.js" },
-        { title: { es: "Versos 695-722: La llegada de Ascanius (Cupido) al palacio", en: "Verses 695-722: The arrival of Ascanius (Cupid) at the palace", zh: "第 695-722 行：阿斯卡尼烏斯（丘比特）抵達宮殿" }, corpusFile: "js/data/libro1-versos-695-722.js" },
-        { title: { es: "Versos 723-756: El banquete y el canto de Iopas", en: "Verses 723-756: The banquet and the song of Iopas", zh: "第 723-756 行：宴會與伊俄帕斯的歌唱" }, corpusFile: "js/data/libro1-versos-723-756.js" },
-        { title: { es: "Versos 757-781: Dido le pide a Eneas que cuente su historia", en: "Verses 757-781: Dido asks Aeneas to tell his story", zh: "第 757-781 行：狄多請埃涅阿斯講述他的故事" }, corpusFile: "js/data/libro1-versos-757-781.js" }
+        { title: { es: "Verses 643-694: Venus prepara el engaño de Cupido", en: "Verses 643-694: Venus prepares Cupid's deception", zh: "第 643-694 行：維納斯準備丘比特的欺騙" }, corpusFile: "js/data/libro1-versos-643-694.js" },
+        { title: { es: "Verses 695-722: La llegada de Ascanius (Cupido) al palacio", en: "Verses 695-722: The arrival of Ascanius (Cupid) at the palace", zh: "第 695-722 行：阿斯卡尼烏斯（丘比特）抵達宮殿" }, corpusFile: "js/data/libro1-versos-695-722.js" },
+        { title: { es: "Verses 723-756: El banquete y el canto de Iopas", en: "Verses 723-756: The banquet and the song of Iopas", zh: "第 723-756 行：宴會與伊俄帕斯的歌唱" }, corpusFile: "js/data/libro1-versos-723-756.js" },
+        { title: { es: "Verses 757-781: Dido le pide a Eneas que cuente su historia", en: "Verses 757-781: Dido asks Aeneas to tell his story", zh: "第 757-781 行：狄多請埃涅阿斯講述他的故事" }, corpusFile: "js/data/libro1-versos-757-781.js" }
     ]
 };
