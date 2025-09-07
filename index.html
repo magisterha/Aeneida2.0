@@ -12,10 +12,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        /* --- ESTILOS GLOBALES Y DEL TEMA MEDIEVAL --- */
         body { background-color: #3d2c1d; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem 1rem; color: #4a3a2a; font-family: 'Helvetica Neue', Arial, sans-serif; }
         .page-container { background-color: #fdf5e6; background-image: url('https://www.transparenttextures.com/patterns/old-wall.png'); border: 1px solid #c9b79c; box-shadow: 0 8px 25px rgba(0,0,0,0.5); max-width: 1200px; width: 100%; border-radius: 4px; }
-        /* --- ESTILOS DE LA VISTA DE ÍNDICE --- */
         #index-view .index-container { padding: 2.5rem 3rem; text-align: center; }
         #index-view h1 { font-family: 'IM Fell English', 'Georgia', serif; font-size: 3.5rem; color: #6d4c35; }
         #index-view h2 { font-family: 'IM Fell English', 'Georgia', serif; font-size: 1.75rem; color: #8c785c; margin-bottom: 2rem; }
@@ -23,7 +21,6 @@
         .chapter-grid li a { text-decoration: none; color: #4a3a2a; font-size: 1.1rem; font-weight: 600; padding: 0.75rem 1rem; border: 1px solid #d1c4b0; border-radius: 0.25rem; transition: all 0.2s; display: flex; flex-direction: column; height: 100%; background-color: rgba(255, 255, 255, 0.5); font-family: 'IM Fell English', 'Georgia', serif; cursor: pointer; }
         .chapter-grid li a:hover { background-color: #f0e6d8; color: #3d2c1d; border-color: #8c785c; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
         .chapter-grid .chapter-title { font-size: 0.95rem; font-weight: normal; opacity: 0.8; margin-top: 0.25rem; color: #8c785c; }
-        /* --- ESTILOS DE LA VISTA DE ANÁLISIS --- */
         .textum-classicum, #context-content { font-family: 'IM Fell English', 'Georgia', serif; font-size: 1.25rem; line-height: 1.8; color: #5c4d3c; }
         #analysis-view h1, #analysis-view h2, #analysis-view h3 { font-family: 'IM Fell English', 'Georgia', serif; font-weight: bold; color: #6d4c35; }
         #analysis-view .verbum { cursor: pointer; transition: color .2s ease-in-out; border-bottom: 1px dotted transparent; }
@@ -37,11 +34,9 @@
         #analysis-view details[open] > summary { color: #3d2c1d; }
         #analysis-view details[open] > summary::before { transform: rotate(90deg); }
         #analysis-view details .details-content { padding-left: 1.2rem; margin-top: 0.5rem; border-left: 1px solid #d1c4b0; }
-        /* Layout responsivo para la VISTA DE ANÁLISIS */
         .main-layout { padding: 1.5rem; }
         #marginalia-sinistra { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #d1c4b0; }
         @media (min-width: 1024px) { .main-layout { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; padding: 2.5rem 3rem; } #marginalia-sinistra { margin-top: 0; padding-top: 0; border-top: none; position: sticky; top: 2.5rem; height: calc(100vh - 5rem); border-left: 1px solid #d1c4b0; padding-left: 2rem; overflow-y: auto; } }
-        /* --- ESTILOS COMUNES --- */
         .language-switcher { display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto 1.5rem auto; }
         .lang-btn { flex-grow: 1; padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.875rem; }
         .lang-btn:hover { background-color: #e9dcc9; }
@@ -61,11 +56,39 @@
         </div>
 
         <div id="analysis-view" class="hidden">
+            <div class="main-layout">
+                <div id="textum-principale">
+                    <header>
+                        <div id="language-switcher-analysis" class="language-switcher"></div>
+                        <p id="author" class="text-sm font-semibold uppercase tracking-wider text-[#8c785c]"></p>
+                        <h1 id="main-title-analysis" class="text-3xl mb-2"></h1>
+                        <h2 id="subtitle-analysis" class="text-xl"></h2>
+                    </header>
+                    <hr class="divider">
+                    <section id="introductio" class="mb-10">
+                        <h3 id="context-title" class="text-2xl mb-2"></h3>
+                        <p id="context-content" class="text-justify leading-relaxed"></p>
+                    </section>
+                    <section id="text-et-analisi">
+                        <h3 id="text-title" class="text-2xl mb-4"></h3>
+                        <div id="paragrafus-contentus" class="textum-classicum"></div>
+                    </section>
+                    <hr class="divider my-10">
+                    <button id="btn-back-to-index" class="w-full lang-btn text-center transition">
+                        <span class="font-['IM_Fell_English']">&laquo; Volver al Índice</span>
+                    </button>
+                </div>
+                <aside id="marginalia-sinistra">
+                    <h3 id="analysis-title" class="text-2xl mb-4">Análisis</h3>
+                    <div id="marginalia-contentus">
+                         <p class="text-[#6d4c35] font-['IM_Fell_English']">Haz clic en una palabra.</p>
+                    </div>
+                </aside>
             </div>
+        </div>
     </div>
 
     <script src="js/data/libro1-capitulos.js"></script>
-    
     <script src="js/app.js"></script>
 </body>
 </html>
