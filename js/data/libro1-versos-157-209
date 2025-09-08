@@ -1,15 +1,15 @@
 registerChapterData(6, {
     context: {
-        es: { 
-            title: "Contexto (Versos 157-209)", 
+        es: {
+            title: "Contexto (Versos 157-209)",
             content: "Los exhaustos troyanos desembarcan en la costa de Libia. Virgilio describe en detalle el puerto natural: un lugar protegido de los vientos, con acantilados, bosques y una cueva con agua dulce. Eneas y sus hombres, con solo siete naves de las veinte originales, se dedican a las tareas de supervivencia: Acates enciende un fuego y preparan el grano rescatado del mar. Mientras, Eneas sube a un peñasco para otear el horizonte en busca del resto de la flota. Al no ver naves pero sí una manada de ciervos, caza siete de ellos, uno para cada barco. Regresa con sus hombres y reparte el alimento y el vino que les había dado Acestes en Sicilia, dirigiéndoles un discurso para levantar su moral, ocultando su propia desesperación."
         },
-        en: { 
-            title: "Context (Verses 157-209)", 
+        en: {
+            title: "Context (Verses 157-209)",
             content: "The exhausted Trojans disembark on the coast of Libya. Virgil describes the natural harbor in detail: a place sheltered from the winds, with cliffs, forests, and a cave with fresh water. Aeneas and his men, with only seven ships remaining from the original twenty, attend to the tasks of survival: Achates lights a fire, and they prepare the grain salvaged from the sea. Meanwhile, Aeneas climbs a crag to scan the horizon for the rest of the fleet. Seeing no ships but spotting a herd of deer, he hunts seven of them, one for each ship. He returns to his men and distributes the food and wine that Acestes had given them in Sicily, delivering a speech to raise their morale while hiding his own despair."
         },
-        zh: { 
-            title: "背景 (第 157-209 行)", 
+        zh: {
+            title: "背景 (第 157-209 行)",
             content: "精疲力竭的特洛伊人在利比亞海岸登陸。維吉爾詳細描述了這個天然港口：一個避風之所，有懸崖、森林和一個有淡水的洞穴。埃涅阿斯和他的手下只剩下七艘船（原來有二十艘），他們開始進行生存任務：亞卡特斯生火，他們準備從海中搶救出來的穀物。與此同時，埃涅阿斯爬上一塊岩石，掃視地平線，尋找其餘的艦隊。他沒有看到船隻，卻發現了一群鹿，便獵殺了七隻，每艘船一隻。他回到眾人中，分發食物和阿凱斯特斯在西西里給他們的酒，並發表演說以提振士氣，同時隱藏著自己的絕望。"
         }
     },
