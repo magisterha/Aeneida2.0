@@ -41,6 +41,12 @@
         .lang-btn { flex-grow: 1; padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.875rem; }
         .lang-btn:hover { background-color: #e9dcc9; }
         .lang-btn.active-lang { background-color: #6d4c35; color: #fdf5e6; border-color: #6d4c35; }
+
+        /* Estilos para la nueva navegación inferior */
+        .navigation-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .navigation-footer .lang-btn { flex-grow: 0; width: auto; padding: 0.5rem 1.5rem; }
+        .nav-btn { padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; text-decoration: none; font-size: 0.875rem; }
+        .nav-btn:hover { background-color: #e9dcc9; }
     </style>
 </head>
 <body>
@@ -74,14 +80,22 @@
                         <div id="paragrafus-contentus" class="textum-classicum"></div>
                     </section>
                     <hr class="divider my-10">
-                    <button id="btn-back-to-index" class="w-full lang-btn text-center transition">
-                        <span class="font-['IM_Fell_English']">&laquo; Volver al Índice</span>
-                    </button>
+                    <div class="navigation-footer">
+                        <a id="btn-prev-chapter" class="nav-btn transition" style="visibility: hidden;">
+                            <span class="font-['IM_Fell_English']">&laquo; Anterior</span>
+                        </a>
+                        <button id="btn-back-to-index" class="lang-btn text-center transition">
+                            <span class="font-['IM_Fell_English']">Volver al Índice</span>
+                        </button>
+                        <a id="btn-next-chapter" class="nav-btn transition" style="visibility: hidden;">
+                            <span class="font-['IM_Fell_English']">Siguiente &raquo;</span>
+                        </a>
+                    </div>
                 </div>
                 <aside id="marginalia-sinistra">
                     <h3 id="analysis-title" class="text-2xl mb-4">Análisis</h3>
                     <div id="marginalia-contentus">
-                         <p class="text-[#6d4c35] font-['IM_Fell_English']">Haz clic en una palabra.</p>
+                         <p class="text-[#6d4c35] font-['IM_Fell_English']">Haz clic en una palabra para ver su análisis.</p>
                     </div>
                 </aside>
             </div>
