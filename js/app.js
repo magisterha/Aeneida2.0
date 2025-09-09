@@ -1,15 +1,22 @@
-window.registerChapterData = (id, data) => {
+window.registerChapterData = (idOrIndex, data) => {
     if (!AENEIS_DATA) {
         console.error("AENEIS_DATA no está definido al registrar datos del capítulo.");
         return;
     }
-    // Busca el capítulo cuyo 'corpusFile' contiene el ID proporcionado.
-    const chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
+
+    let chapter;
+
+    if (typeof idOrIndex === 'number') {
+        chapter = AENEIS_DATA.chapters[idOrIndex];
+    } 
+    else if (typeof idOrIndex === 'string') {
+        chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(idOrIndex));
+    }
 
     if (chapter) {
         chapter.corpus = data;
     } else {
-        console.error(`No se pudo encontrar el capítulo para el ID: ${id}`);
+        console.error(`No se pudo encontrar el capítulo para el ID/Índice: ${idOrIndex}`);
     }
 };
 
@@ -92,6 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
         mainTitleAnalysis.textContent = AENEIS_DATA.mainTitle[currentLang];
         subtitleAnalysis.textContent = chapter.title[currentLang];
         
+        contextTitleElem.textContent = '';
+        contextContentElem.textContent = '';
+
         if (corpusData && corpusData.context) {
             contextTitleElem.textContent = corpusData.context[currentLang]?.title || '';
             contextContentElem.textContent = corpusData.context[currentLang]?.content || '';
@@ -101,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         analysisTitleElem.textContent = currentLang === 'es' ? 'Análisis' : (currentLang === 'en' ? 'Analysis' : '分析');
 
         buildLatinText(corpusData);
-        document.getElementById('marginalia-contentus').innerHTML = `<p class="text-[#6d4c35] font-['IM_Fell_English']">Haz clic en una palabra para ver su análisis.</p>`;
+        document.getElementById('marginalia-contentus').innerHTML = `<p class="text-[#6d4c35] font-['IM_Fell_English']">${currentLang === 'es' ? 'Haz clic en una palabra para ver su análisis.' : 'Click on a word to see its analysis.'}</p>`;
     };
 
     const buildLatinText = (corpus) => {
@@ -114,20 +124,28 @@ document.addEventListener('DOMContentLoaded', () => {
             p.className = "mb-6 textum-classicum";
             p.innerHTML = `<span class="verse-number mr-2">${versus.numerus}. </span>`;
             versus.orationes.forEach((sententia, sententiaIndex) => {
-                sententia.original_lat.split(/(\s+)/).forEach(word => {
-                    if (!word.trim()) { p.appendChild(document.createTextNode(word)); return; }
-                    const cleanWord = word.replace(/[,.;:?]/g, '');
-                    const verbumData = sententia.verba.find(v => v.textus.replace(/[,.;:?]/g, '') === cleanWord);
+                const wordsAndSpaces = sententia.original_lat.split(/(\s+)/);
+                wordsAndSpaces.forEach((word, index) => {
+                    if (!word.trim()) { 
+                        p.appendChild(document.createTextNode(word)); 
+                        return; 
+                    }
+                    
+                    const cleanWord = word.replace(/[.,;:?!—]/g, '');
+                    const verbumData = sententia.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === cleanWord);
+                    
+                    const span = document.createElement('span');
+                    span.textContent = word;
+
                     if (verbumData) {
-                        const span = document.createElement('span');
-                        span.textContent = word + ' ';
                         span.className = 'verbum';
                         span.dataset.versusIndex = versusIndex;
                         span.dataset.sententiaIndex = sententiaIndex;
                         span.dataset.verbumTextus = verbumData.textus;
-                        p.appendChild(span);
-                    } else {
-                        p.appendChild(document.createTextNode(word + ' '));
+                    }
+                    p.appendChild(span);
+                    if (index < wordsAndSpaces.length - 1 && !/^\s+$/.test(wordsAndSpaces[index+1])) {
+                        p.appendChild(document.createTextNode(' '));
                     }
                 });
             });
@@ -139,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { versusIndex, sententiaIndex, verbumTextus } = clickedSpan.dataset;
         const chapterData = AENEIS_DATA.chapters[activeChapterIndex].corpus;
         const sententiaData = chapterData.textus.capitula[versusIndex].orationes[sententiaIndex];
-        const verbumData = sententiaData.verba.find(v => v.textus.replace(/[,.;:?]/g, '') === verbumTextus.replace(/[,.;:?]/g, ''));
+        const verbumData = sententiaData.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === verbumTextus.replace(/[.,;:?!—]/g, ''));
         if (!verbumData) return;
 
         const palabraTraducida = verbumData.translatio ? verbumData.translatio[currentLang] : 'N/A';
@@ -156,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <hr class="divider" style="margin: 1rem 0;">
                 <details open>
-                    <summary class="font-semibold">Traducción del Verso</summary>
+                    <summary class="font-semibold">${currentLang === 'es' ? 'Traducción del Verso' : 'Verse Translation'}</summary>
                     <div class="details-content mt-2 text-sm"><p>${oratioTraducida}</p></div>
                 </details>
             </div>`;
@@ -194,7 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 indexView.classList.add('hidden');
                 analysisView.classList.remove('hidden');
             } else if (chapter.corpusFile) {
-                chapterLink.innerHTML += ' <span class="loading">(Cargando...)</span>';
+                const loadingSpan = document.createElement('span');
+                loadingSpan.className = 'loading';
+                loadingSpan.textContent = ` (${currentLang === 'es' ? 'Cargando...' : 'Loading...'})`;
+                chapterLink.appendChild(loadingSpan);
+
                 loadScript(chapter.corpusFile)
                     .then(() => {
                         renderAnalysisView(index);
@@ -203,8 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                     .catch(error => {
                         console.error(error);
-                        const loadingSpan = chapterLink.querySelector('.loading');
-                        if(loadingSpan) loadingSpan.textContent = ' (Error de carga)';
+                        if(loadingSpan) loadingSpan.textContent = ` (${currentLang === 'es' ? 'Error de carga' : 'Loading error'})`;
                     });
             }
         }
