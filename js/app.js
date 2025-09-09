@@ -1,6 +1,15 @@
-window.registerChapterData = (index, data) => {
-    if (AENEIS_DATA && AENEIS_DATA.chapters[index]) {
-        AENEIS_DATA.chapters[index].corpus = data;
+window.registerChapterData = (id, data) => {
+    if (!AENEIS_DATA) {
+        console.error("AENEIS_DATA no está definido al registrar datos del capítulo.");
+        return;
+    }
+    // Busca el capítulo cuyo 'corpusFile' contiene el ID proporcionado.
+    const chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
+
+    if (chapter) {
+        chapter.corpus = data;
+    } else {
+        console.error(`No se pudo encontrar el capítulo para el ID: ${id}`);
     }
 };
 
