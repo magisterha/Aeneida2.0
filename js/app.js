@@ -3,16 +3,13 @@ window.registerChapterData = (idOrIndex, data) => {
         console.error("AENEIS_DATA no está definido al registrar datos del capítulo.");
         return;
     }
-
     let chapter;
-
     if (typeof idOrIndex === 'number') {
         chapter = AENEIS_DATA.chapters[idOrIndex];
     } 
     else if (typeof idOrIndex === 'string') {
         chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(idOrIndex));
     }
-
     if (chapter) {
         chapter.corpus = data;
     } else {
@@ -58,11 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const langSwitcherIndex = document.getElementById('language-switcher-index');
         const mainTitleIndex = document.getElementById('main-title-index');
         const subtitleIndex = document.getElementById('subtitle-index');
-        
         buildLangSwitcher(langSwitcherIndex);
         mainTitleIndex.textContent = AENEIS_DATA.mainTitle[currentLang];
         subtitleIndex.textContent = AENEIS_DATA.subtitle[currentLang];
-        
         chapterGrid.innerHTML = '';
         AENEIS_DATA.chapters.forEach((chapter, index) => {
             const [title, description] = chapter.title[currentLang].split(': ');
@@ -94,6 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const textTitleElem = document.getElementById('text-title');
         const analysisTitleElem = document.getElementById('analysis-title');
         
+        // --- MODIFICACIÓN 1: Referencia a los nuevos botones ---
+        const prevBtn = document.getElementById('btn-prev-chapter');
+        const nextBtn = document.getElementById('btn-next-chapter');
+
         buildLangSwitcher(langSwitcherAnalysis);
         authorElem.textContent = AENEIS_DATA.author;
         mainTitleAnalysis.textContent = AENEIS_DATA.mainTitle[currentLang];
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         contextTitleElem.textContent = '';
         contextContentElem.textContent = '';
-
         if (corpusData && corpusData.context) {
             contextTitleElem.textContent = corpusData.context[currentLang]?.title || '';
             contextContentElem.textContent = corpusData.context[currentLang]?.content || '';
@@ -112,13 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         buildLatinText(corpusData);
         document.getElementById('marginalia-contentus').innerHTML = `<p class="text-[#6d4c35] font-['IM_Fell_English']">${currentLang === 'es' ? 'Haz clic en una palabra para ver su análisis.' : 'Click on a word to see its analysis.'}</p>`;
+
+        // --- MODIFICACIÓN 2: Lógica para mostrar/ocultar botones de navegación ---
+        // Botón Anterior
+        if (chapterIndex > 0) {
+            prevBtn.style.visibility = 'visible';
+            prevBtn.dataset.targetIndex = chapterIndex - 1;
+        } else {
+            prevBtn.style.visibility = 'hidden';
+        }
+        // Botón Siguiente
+        if (chapterIndex < AENEIS_DATA.chapters.length - 1) {
+            nextBtn.style.visibility = 'visible';
+            nextBtn.dataset.targetIndex = chapterIndex + 1;
+        } else {
+            nextBtn.style.visibility = 'hidden';
+        }
     };
 
     const buildLatinText = (corpus) => {
         const paragrafusContentusElem = document.getElementById('paragrafus-contentus');
         paragrafusContentusElem.innerHTML = '';
         if (!corpus || !corpus.textus) return;
-
         corpus.textus.capitula.forEach((versus, versusIndex) => {
             const p = document.createElement('p');
             p.className = "mb-6 textum-classicum";
@@ -126,17 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             versus.orationes.forEach((sententia, sententiaIndex) => {
                 const wordsAndSpaces = sententia.original_lat.split(/(\s+)/);
                 wordsAndSpaces.forEach((word, index) => {
-                    if (!word.trim()) { 
-                        p.appendChild(document.createTextNode(word)); 
-                        return; 
-                    }
-                    
+                    if (!word.trim()) { p.appendChild(document.createTextNode(word)); return; }
                     const cleanWord = word.replace(/[.,;:?!—]/g, '');
                     const verbumData = sententia.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === cleanWord);
-                    
                     const span = document.createElement('span');
                     span.textContent = word;
-
                     if (verbumData) {
                         span.className = 'verbum';
                         span.dataset.versusIndex = versusIndex;
@@ -144,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         span.dataset.verbumTextus = verbumData.textus;
                     }
                     p.appendChild(span);
-                    if (index < wordsAndSpaces.length - 1 && !/^\s+$/.test(wordsAndSpaces[index+1])) {
+                    if (index < wordsAndSpaces.length - 1 && !/^\s+$/.test(wordsAndSpaces[index + 1])) {
                         p.appendChild(document.createTextNode(' '));
                     }
                 });
@@ -159,10 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const sententiaData = chapterData.textus.capitula[versusIndex].orationes[sententiaIndex];
         const verbumData = sententiaData.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === verbumTextus.replace(/[.,;:?!—]/g, ''));
         if (!verbumData) return;
-
         const palabraTraducida = verbumData.translatio ? verbumData.translatio[currentLang] : 'N/A';
         const oratioTraducida = sententiaData.translationes[currentLang] || 'N/A';
-
         document.getElementById('marginalia-contentus').innerHTML = `
             <div class="space-y-4">
                 <div>
@@ -195,6 +200,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
+    // --- NUEVA FUNCIÓN REUTILIZABLE para cargar y mostrar un capítulo ---
+    const navigateToChapter = (index) => {
+        const chapter = AENEIS_DATA.chapters[index];
+        if (!chapter) return;
+
+        if (chapter.corpus) {
+            renderAnalysisView(index);
+            indexView.classList.add('hidden');
+            analysisView.classList.remove('hidden');
+        } else if (chapter.corpusFile) {
+            loadScript(chapter.corpusFile)
+                .then(() => {
+                    renderAnalysisView(index);
+                    indexView.classList.add('hidden');
+                    analysisView.classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Error al cargar los datos del capítulo.");
+                });
+        }
+    };
+
     document.querySelector('.page-container').addEventListener('click', e => {
         const langBtn = e.target.closest('.lang-btn');
         if (langBtn) {
@@ -205,29 +233,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (chapterLink && chapterLink.dataset.index) {
             e.preventDefault();
             const index = parseInt(chapterLink.dataset.index, 10);
-            const chapter = AENEIS_DATA.chapters[index];
+            navigateToChapter(index); // Usamos la nueva función
+        }
 
-            if (chapter.corpus) {
-                renderAnalysisView(index);
-                indexView.classList.add('hidden');
-                analysisView.classList.remove('hidden');
-            } else if (chapter.corpusFile) {
-                const loadingSpan = document.createElement('span');
-                loadingSpan.className = 'loading';
-                loadingSpan.textContent = ` (${currentLang === 'es' ? 'Cargando...' : 'Loading...'})`;
-                chapterLink.appendChild(loadingSpan);
-
-                loadScript(chapter.corpusFile)
-                    .then(() => {
-                        renderAnalysisView(index);
-                        indexView.classList.add('hidden');
-                        analysisView.classList.remove('hidden');
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        if(loadingSpan) loadingSpan.textContent = ` (${currentLang === 'es' ? 'Error de carga' : 'Loading error'})`;
-                    });
-            }
+        // --- MODIFICACIÓN 3: Gestor de eventos para los nuevos botones ---
+        const navLink = e.target.closest('#btn-prev-chapter, #btn-next-chapter');
+        if (navLink && navLink.dataset.targetIndex) {
+            e.preventDefault();
+            const index = parseInt(navLink.dataset.targetIndex, 10);
+            navigateToChapter(index); // Reutilizamos la misma función
         }
 
         const backButton = e.target.closest('#btn-back-to-index');
