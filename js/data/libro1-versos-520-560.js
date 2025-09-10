@@ -18,14 +18,14 @@ registerChapterData('libro1-versos-520-560', {
             {
                 "numerus": 520,
                 "orationes": [{
-                    "original_lat": "iustitiaque dedit gentis frenare superbas:",
-                    "translationes": { "es": "y te ha dado (el poder de) frenar a las gentes soberbias con justicia:", "en": "and has granted you (the power) to curb proud nations with justice:", "zh": "並賜予您以正義約束高傲民族的權力：" },
+                    "original_lat": "iustitiaque dedit gentis frenare superbas,",
+                    "translationes": { "es": "y te ha dado (el poder de) frenar a las gentes soberbias con justicia,", "en": "and has granted you (the power) to curb proud nations with justice,", "zh": "並賜予您以正義約束高傲民族的權力，" },
                     "verba": [
                         { "textus": "iustitiaque", "lemma": "iustitiaque", "morphologia": "Sustantivo + Conjunción, Ablativo, Singular, Femenino", "syntaxis": "Ablativo de modo", "translatio": { "es": "y con justicia", "en": "and with justice", "zh": "並以正義" } },
                         { "textus": "dedit", "lemma": "do", "morphologia": "Verbo, 3ª pers. sing., Perfecto Indicativo Activo", "syntaxis": "Verbo", "translatio": { "es": "ha concedido", "en": "has granted", "zh": "賜予" } },
                         { "textus": "gentis", "lemma": "gens", "morphologia": "Sustantivo, Acusativo, Plural, Femenino", "syntaxis": "Objeto Directo de 'frenare'", "translatio": { "es": "a las gentes", "en": "nations", "zh": "民族" } },
                         { "textus": "frenare", "lemma": "freno", "morphologia": "Verbo, Infinitivo Presente Activo", "syntaxis": "Objeto de 'dedit'", "translatio": { "es": "frenar", "en": "to curb", "zh": "約束" } },
-                        { "textus": "superbas:", "lemma": "superbus", "morphologia": "Adjetivo, Acusativo, Plural, Femenino", "syntaxis": "Modificador de 'gentis'", "translatio": { "es": "soberbias", "en": "proud", "zh": "高傲的" } }
+                        { "textus": "superbas,", "lemma": "superbus", "morphologia": "Adjetivo, Acusativo, Plural, Femenino", "syntaxis": "Modificador de 'gentis'", "translatio": { "es": "soberbias", "en": "proud", "zh": "高傲的" } }
                     ]
                 }]
             },
@@ -650,4 +650,3 @@ registerChapterData('libro1-versos-520-560', {
         ]
     }
 });
-```
