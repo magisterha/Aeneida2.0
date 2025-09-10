@@ -3,13 +3,16 @@ window.registerChapterData = (idOrIndex, data) => {
         console.error("AENEIS_DATA no está definido al registrar datos del capítulo.");
         return;
     }
+
     let chapter;
+
     if (typeof idOrIndex === 'number') {
         chapter = AENEIS_DATA.chapters[idOrIndex];
     } 
     else if (typeof idOrIndex === 'string') {
         chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(idOrIndex));
     }
+
     if (chapter) {
         chapter.corpus = data;
     } else {
@@ -89,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const textTitleElem = document.getElementById('text-title');
         const analysisTitleElem = document.getElementById('analysis-title');
         
-        // --- MODIFICACIÓN 1: Referencia a los nuevos botones ---
         const prevBtn = document.getElementById('btn-prev-chapter');
         const nextBtn = document.getElementById('btn-next-chapter');
 
@@ -111,15 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
         buildLatinText(corpusData);
         document.getElementById('marginalia-contentus').innerHTML = `<p class="text-[#6d4c35] font-['IM_Fell_English']">${currentLang === 'es' ? 'Haz clic en una palabra para ver su análisis.' : 'Click on a word to see its analysis.'}</p>`;
 
-        // --- MODIFICACIÓN 2: Lógica para mostrar/ocultar botones de navegación ---
-        // Botón Anterior
         if (chapterIndex > 0) {
             prevBtn.style.visibility = 'visible';
             prevBtn.dataset.targetIndex = chapterIndex - 1;
         } else {
             prevBtn.style.visibility = 'hidden';
         }
-        // Botón Siguiente
         if (chapterIndex < AENEIS_DATA.chapters.length - 1) {
             nextBtn.style.visibility = 'visible';
             nextBtn.dataset.targetIndex = chapterIndex + 1;
@@ -200,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    // --- NUEVA FUNCIÓN REUTILIZABLE para cargar y mostrar un capítulo ---
     const navigateToChapter = (index) => {
         const chapter = AENEIS_DATA.chapters[index];
         if (!chapter) return;
@@ -209,12 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAnalysisView(index);
             indexView.classList.add('hidden');
             analysisView.classList.remove('hidden');
+            // --- MODIFICACIÓN AQUÍ ---
+            window.scrollTo({ top: 0, behavior: 'auto' });
         } else if (chapter.corpusFile) {
             loadScript(chapter.corpusFile)
                 .then(() => {
                     renderAnalysisView(index);
                     indexView.classList.add('hidden');
                     analysisView.classList.remove('hidden');
+                    // --- MODIFICACIÓN AQUÍ ---
+                    window.scrollTo({ top: 0, behavior: 'auto' });
                 })
                 .catch(error => {
                     console.error(error);
@@ -233,15 +235,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (chapterLink && chapterLink.dataset.index) {
             e.preventDefault();
             const index = parseInt(chapterLink.dataset.index, 10);
-            navigateToChapter(index); // Usamos la nueva función
+            navigateToChapter(index);
         }
 
-        // --- MODIFICACIÓN 3: Gestor de eventos para los nuevos botones ---
         const navLink = e.target.closest('#btn-prev-chapter, #btn-next-chapter');
         if (navLink && navLink.dataset.targetIndex) {
             e.preventDefault();
             const index = parseInt(navLink.dataset.targetIndex, 10);
-            navigateToChapter(index); // Reutilizamos la misma función
+            navigateToChapter(index);
         }
 
         const backButton = e.target.closest('#btn-back-to-index');
