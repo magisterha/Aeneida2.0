@@ -30,5 +30,44 @@ const AENEIS_DATA = {
         { title: { es: "Verses 643-694: Venus prepara el engaño de Cupido", en: "Verses 643-694: Venus prepares Cupid's deception", zh: "第 643-694 行：維納斯準備丘比特的欺騙" }, corpusFile: "js/data/libro1-versos-643-694.js" },
         { title: { es: "Verses 695-722: La llegada de Ascanius (Cupido) al palacio", en: "Verses 695-722: The arrival of Ascanius (Cupid) at the palace", zh: "第 695-722 行：阿斯卡尼烏斯（丘比特）抵達宮殿" }, corpusFile: "js/data/libro1-versos-695-722.js" },
         { title: { es: "Verses 723-756: El banquete y el canto de Iopas", en: "Verses 723-756: The banquet and the song of Iopas", zh: "第 723-756 行：宴會與伊俄帕斯的歌唱" }, corpusFile: "js/data/libro1-versos-723-756.js" },
-    ]
+            ]
+        },
+        book2: {
+            title: { es: "Libro Segundo", en: "Book Two", zh: "第二卷" },
+            chapters: [
+                { title: { es: "Versos 1-13: El Doloroso Deber de Narrar", en: "Verses 1-13: The Sorrowful Duty of Narration", zh: "第 1-13 行：敘述的悲傷職責" }, corpusFile: "js/data/libro2-versos-1-13.js" },
+                { title: { es: "Versos 14-39: El Caballo de Troya y la Advertencia de Laocoonte", en: "Verses 14-39: The Trojan Horse and Laocoön's Warning", zh: "第 14-39 行：特洛伊木馬與拉奧孔的警告" }, corpusFile: "js/data/libro2-versos-14-39.js" },
+                { title: { es: "Versos 40-56: 'Timeo Danaos et Dona Ferentes'", en: "Verses 40-56: 'I Fear the Greeks, Even Bearing Gifts'", zh: "第 40-56 行：『我害怕帶來禮物的希臘人』" }, corpusFile: "js/data/libro2-versos-40-56.js" },
+                { title: { es: "Versos 57-76: La Captura de Sinón", en: "Verses 57-76: The Capture of Sinon", zh: "第 57-76 行：西農的被俘" }, corpusFile: "js/data/libro2-versos-57-76.js" },
+                { title: { es: "Versos 77-104: El Falso Relato de Sinón", en: "Verses 77-104: Sinon's Deceptive Tale", zh: "第 77-104 行：西農的欺騙性故事" }, corpusFile: "js/data/libro2-versos-77-104.js" },
+                { title: { es: "Versos 105-144: El Oráculo Falsificado y el 'Sacrificio'", en: "Verses 105-144: The Forged Oracle and the 'Sacrifice'", zh: "第 105-144 行：偽造的神諭與「犧牲」" }, corpusFile: "js/data/libro2-versos-105-144.js" },
+                { title: { es: "Versos 145-175: El Paladio Robado", en: "Verses 145-175: The Stolen Palladium", zh: "第 145-175 行：被盜的雅典娜神像" }, corpusFile: "js/data/libro2-versos-145-175.js" },
+                { title: { es: "Versos 176-198: El Propósito del Caballo", en: "Verses 176-198: The Purpose of the Horse", zh: "第 176-198 行：木馬的目的" }, corpusFile: "js/data/libro2-versos-176-198.js" },
+                { title: { es: "Versos 199-227: La Muerte de Laocoonte y sus Hijos", en: "Verses 199-227: The Death of Laocoön and His Sons", zh: "第 199-227 行：拉奧孔及其兒子的死亡" }, corpusFile: "js/data/libro2-versos-199-227.js" },
+                { title: { es: "Versos 228-249: El Caballo Entra en Troya", en: "Verses 228-249: The Horse Enters Troy", zh: "第 228-249 行：木馬進入特洛伊" }, corpusFile: "js/data/libro2-versos-228-249.js" },
+                { title: { es: "Versos 250-267: Los Griegos Emergen en la Noche", en: "Verses 250-267: The Greeks Emerge in the Night", zh: "第 250-267 行：希臘人在夜間現身" }, corpusFile: "js/data/libro2-versos-250-267.js" },
+                { title: { es: "Versos 268-297: El Fantasma de Héctor", en: "Verses 268-297: The Ghost of Hector", zh: "第 268-297 行：赫克托耳的鬼魂" }, corpusFile: "js/data/libro2-versos-268-297.js" },
+                { title: { es: "Versos 298-317: Eneas Despierta en una Ciudad en Llamas", en: "Verses 298-317: Aeneas Awakens to a Burning City", zh: "第 298-317 行：埃涅阿斯在燃燒的城市中醒來" }, corpusFile: "js/data/libro2-versos-298-317.js" },
+                { title: { es: "Versos 318-338: El Relato de Panto y la Llamada a las Armas", en: "Verses 318-338: Panthus's Report and the Call to Arms", zh: "第 318-338 行：潘圖斯的報告與戰鬥的號召" }, corpusFile: "js/data/libro2-versos-318-338.js" },
+                { title: { es: "Versos 339-360: La Furia de la Batalla Desesperada", en: "Verses 339-360: The Fury of a Desperate Battle", zh: "第 339-360 行：絕望戰鬥的狂怒" }, corpusFile: "js/data/libro2-versos-339-360.js" },
+                { title: { es: "Versos 361-385: El Caos de la Lucha y la Idea de Corebo", en: "Verses 361-385: The Chaos of the Fight and Coroebus's Idea", zh: "第 361-385 行：戰鬥的混亂與科羅伊波斯的計策" }, corpusFile: "js/data/libro2-versos-361-385.js" },
+                { title: { es: "Versos 386-401: El Disfraz con Armaduras Griegas", en: "Verses 386-401: The Disguise in Greek Armor", zh: "第 386-401 行：偽裝成希臘盔甲" }, corpusFile: "js/data/libro2-versos-386-401.js" },
+                { title: { es: "Versos 402-437: El Trágico Destino de Casandra", en: "Verses 402-437: The Tragic Fate of Cassandra", zh: "第 402-437 行：卡珊德拉的悲慘命運" }, corpusFile: "js/data/libro2-versos-402-437.js" },
+                { title: { es: "Versos 438-452: La Batalla en el Palacio de Príamo", en: "Verses 438-452: The Battle at Priam's Palace", zh: "第 438-452 行：普里阿摩斯宮殿的戰鬥" }, corpusFile: "js/data/libro2-versos-438-452.js" },
+                { title: { es: "Versos 453-485: La Defensa del Tejado del Palacio", en: "Verses 453-485: The Defense of the Palace Roof", zh: "第 453-485 行：宮殿屋頂的防禦" }, corpusFile: "js/data/libro2-versos-453-485.js" },
+                { title: { es: "Versos 486-505: Pirro (Neoptólemo) Irrumpe en las Puertas", en: "Verses 486-505: Pyrrhus (Neoptolemus) Breaches the Gates", zh: "第 486-505 行：皮爾羅斯（涅俄普托勒摩斯）攻破大門" }, corpusFile: "js/data/libro2-versos-486-505.js" },
+                { title: { es: "Versos 506-525: Hécuba y sus Hijas en el Altar", en: "Verses 506-525: Hecuba and her Daughters at the Altar", zh: "第 506-525 行：赫卡柏與女兒們在祭壇前" }, corpusFile: "js/data/libro2-versos-506-525.js" },
+                { title: { es: "Versos 526-558: El Asesinato de Polites y Príamo", en: "Verses 526-558: The Murder of Polites and Priam", zh: "第 526-558 行：波利特斯與普里阿摩斯的謀殺" }, corpusFile: "js/data/libro2-versos-526-558.js" },
+                { title: { es: "Versos 559-587: Eneas ve a Helena y se Enfurece", en: "Verses 559-587: Aeneas Sees Helen and is Enraged", zh: "第 559-587 行：埃涅阿斯見到海倫並勃然大怒" }, corpusFile: "js/data/libro2-versos-559-587.js" },
+                { title: { es: "Versos 588-623: Venus Interviene y Muestra a los Dioses en Guerra", en: "Verses 588-623: Venus Intervenes and Reveals the Gods at War", zh: "第 588-623 行：維納斯介入並揭示眾神之戰" }, corpusFile: "js/data/libro2-versos-588-623.js" },
+                { title: { es: "Versos 624-633: Venus Insta a Eneas a Huir", en: "Verses 624-633: Venus Urges Aeneas to Flee", zh: "第 624-633 行：維納斯敦促埃涅阿斯逃跑" }, corpusFile: "js/data/libro2-versos-624-633.js" },
+                { title: { es: "Versos 634-667: Anquises se Niega a Partir", en: "Verses 634-667: Anchises Refuses to Leave", zh: "第 634-667 行：安奇塞斯拒絕離開" }, corpusFile: "js/data/libro2-versos-634-667.js" },
+                { title: { es: "Versos 668-704: El Augurio de la Llama y la Estrella Fugaz", en: "Verses 668-704: The Omen of the Flame and the Shooting Star", zh: "第 668-704 行：火焰與流星的預兆" }, corpusFile: "js/data/libro2-versos-668-704.js" },
+                { title: { es: "Versos 705-729: Eneas Carga con Anquises", en: "Verses 705-729: Aeneas Carries Anchises", zh: "第 705-729 行：埃涅阿斯背負安奇塞斯" }, corpusFile: "js/data/libro2-versos-705-729.js" },
+                { title: { es: "Versos 730-767: La Pérdida de Creúsa", en: "Verses 730-767: The Loss of Creusa", zh: "第 730-767 行：克瑞烏薩的失蹤" }, corpusFile: "js/data/libro2-versos-730-767.js" },
+                { title: { es: "Versos 768-795: El Fantasma de Creúsa se Aparece a Eneas", en: "Verses 768-795: The Ghost of Creusa Appears to Aeneas", zh: "第 768-795 行：克瑞烏薩的鬼魂向埃涅阿斯顯現" }, corpusFile: "js/data/libro2-versos-768-795.js" },
+                { title: { es: "Versos 796-804: La Partida de Troya", en: "Verses 796-804: The Departure from Troy", zh: "第 796-804 行：離開特洛伊" }, corpusFile: "js/data/libro2-versos-796-804.js" }
+            ]
+        }
+    }
 };
