@@ -1,4 +1,3 @@
-
 window.registerChapterData = (id, data) => {
     if (!AENEIS_DATA) return;
     for (const bookKey in AENEIS_DATA.books) {
@@ -20,6 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const indexView = document.getElementById('index-view');
     const analysisView = document.getElementById('analysis-view');
     const chapterGrid = document.querySelector('.chapter-grid');
+
+    // --- LÓGICA DE ORDENACIÓN INICIAL ---
+    // Esta función se asegura de que los capítulos de todos los libros estén siempre ordenados.
+    const sortAllChapters = () => {
+        const getStartVerse = (corpusFile) => {
+            const match = corpusFile.match(/-(\d+)-/);
+            return match ? parseInt(match[1], 10) : 0;
+        };
+        for (const bookKey in AENEIS_DATA.books) {
+            AENEIS_DATA.books[bookKey].chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
+        }
+    };
 
     const loadScript = (url) => {
         return new Promise((resolve, reject) => {
@@ -60,18 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentBook = AENEIS_DATA.books[currentBookKey];
         subtitleIndex.textContent = currentBook.title[currentLang];
         chapterGrid.innerHTML = '';
-
-        // --- SOLUCIÓN DEFINITIVA AQUÍ ---
-        // 1. Creamos una función para extraer el número inicial del verso desde el nombre del archivo.
-        const getStartVerse = (corpusFile) => {
-            const match = corpusFile.match(/-(\d+)-/);
-            return match ? parseInt(match[1], 10) : 0;
-        };
-
-        // 2. Ordenamos la lista de capítulos ANTES de mostrarla.
-        currentBook.chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
-
-        // 3. Ahora el bucle forEach procesará la lista ya ordenada.
+        
         currentBook.chapters.forEach((chapter, index) => {
             const [title, description] = chapter.title[currentLang].split(': ');
             const listItem = document.createElement('li');
@@ -91,13 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderAnalysisView = (chapterIndex) => {
         activeChapterIndex = chapterIndex;
         const currentBook = AENEIS_DATA.books[currentBookKey];
-        // Asegurarse de que la lista está ordenada también antes de acceder por índice
-        const getStartVerse = (corpusFile) => {
-            const match = corpusFile.match(/-(\d+)-/);
-            return match ? parseInt(match[1], 10) : 0;
-        };
-        currentBook.chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
-        
         const chapter = currentBook.chapters[chapterIndex];
         const corpusData = chapter.corpus;
 
@@ -264,5 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- LLAMADA A LA FUNCIÓN DE ORDENACIÓN INICIAL ---
+    sortAllChapters();
     renderIndexView();
 });
