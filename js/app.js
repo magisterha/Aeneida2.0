@@ -20,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const analysisView = document.getElementById('analysis-view');
     const chapterGrid = document.querySelector('.chapter-grid');
 
-    // --- LÓGICA DE ORDENACIÓN INICIAL ---
-    // Esta función se asegura de que los capítulos de todos los libros estén siempre ordenados.
     const sortAllChapters = () => {
         const getStartVerse = (corpusFile) => {
             const match = corpusFile.match(/-(\d+)-/);
@@ -257,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- LLAMADA A LA FUNCIÓN DE ORDENACIÓN INICIAL ---
     sortAllChapters();
     renderIndexView();
 });
