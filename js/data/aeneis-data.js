@@ -34,6 +34,7 @@ const AENEIS_DATA = {
                 { title: { es: "Versos 723-756: El banquete y el canto de Iopas", en: "Verses 723-756: The banquet and the song of Iopas", zh: "第 723-756 行：宴會與伊俄帕斯的歌唱" }, corpusFile: "js/data/libro1-versos-723-756.js" }
             ]
         },
+        /*
         book2: {
             title: { es: "Libro Segundo", en: "Book Two", zh: "第二卷" },
             chapters: [
@@ -62,7 +63,7 @@ const AENEIS_DATA = {
                 { title: { es: "Versos 526-558: El Asesinato de Polites y Príamo", en: "Verses 526-558: The Murder of Polites and Priam", zh: "第 526-558 行：波利特斯與普里阿摩斯的謀殺" }, corpusFile: "js/data/libro2-versos-526-558.js" },
                 { title: { es: "Versos 559-587: Eneas ve a Helena y se Enfurece", en: "Verses 559-587: Aeneas Sees Helen and is Enraged", zh: "第 559-587 行：埃涅阿斯見到海倫並勃然大怒" }, corpusFile: "js/data/libro2-versos-559-587.js" },
                 { title: { es: "Versos 588-623: Venus Interviene y Muestra a los Dioses en Guerra", en: "Verses 588-623: Venus Intervenes and Reveals the Gods at War", zh: "第 588-623 行：維納斯介入並揭示眾神之戰" }, corpusFile: "js/data/libro2-versos-588-623.js" },
-                { title: { es: "Versos 624-633: Venus Insta a Eneas a Huir", en: "Verses 624-633: Venus Urges Aeneas to Flee", zh: "第 624-633 行：維納斯敦促埃涅阿斯逃跑" }, corpusFile: "js/data/libro2-versos-624-633.js" },
+                { title: { es: "Verses 624-633: Venus Insta a Eneas a Huir", en: "Verses 624-633: Venus Urges Aeneas to Flee", zh: "第 624-633 行：維納斯敦促埃涅阿斯逃跑" }, corpusFile: "js/data/libro2-versos-624-633.js" },
                 { title: { es: "Verses 634-667: Anquises se Niega a Partir", en: "Verses 634-667: Anchises Refuses to Leave", zh: "第 634-667 行：安奇塞斯拒絕離開" }, corpusFile: "js/data/libro2-versos-634-667.js" },
                 { title: { es: "Verses 668-704: El Augurio de la Llama y la Estrella Fugaz", en: "Verses 668-704: The Omen of the Flame and the Shooting Star", zh: "第 668-704 行：火焰與流星的預兆" }, corpusFile: "js/data/libro2-versos-668-704.js" },
                 { title: { es: "Verses 705-729: Eneas Carga con Anquises", en: "Verses 705-729: Aeneas Carries Anchises", zh: "第 705-729 行：埃涅阿斯背負安奇塞斯" }, corpusFile: "js/data/libro2-versos-705-729.js" },
@@ -71,5 +72,7 @@ const AENEIS_DATA = {
                 { title: { es: "Verses 796-804: La Partida de Troya", en: "Verses 796-804: The Departure from Troy", zh: "第 796-804 行：離開特洛伊" }, corpusFile: "js/data/libro2-versos-796-804.js" }
             ]
         }
+        */
     }
 };
+```
