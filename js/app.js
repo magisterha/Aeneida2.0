@@ -9,7 +9,6 @@ const PROMO_DATA = {
 
 window.registerChapterData = (id, data) => {
     if (!AENEIS_DATA) return;
-    // Bucle anidado para encontrar el capítulo correcto en cualquier libro
     for (const bookKey in AENEIS_DATA.books) {
         const chapter = AENEIS_DATA.books[bookKey].chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
         if (chapter) {
@@ -22,7 +21,7 @@ window.registerChapterData = (id, data) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentLang = 'es';
-    let currentBookKey = 'book1'; // Empezamos en el Libro 1 por defecto
+    let currentBookKey = 'book1';
     const loadedScripts = new Set();
     let activeChapterIndex = -1;
 
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mainTitleIndex.textContent = AENEIS_DATA.mainTitle[currentLang];
 
-        // --- LÓGICA PARA RENDERIZAR EL SELECTOR DE LIBROS ---
         bookSelector.innerHTML = '';
         Object.keys(AENEIS_DATA.books).forEach(bookKey => {
             const book = AENEIS_DATA.books[bookKey];
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bookSelector.appendChild(button);
         });
 
-        // --- LÓGICA ACTUALIZADA PARA MOSTRAR CAPÍTULOS DEL LIBRO ACTIVO ---
         const currentBook = AENEIS_DATA.books[currentBookKey];
         subtitleIndex.textContent = currentBook.title[currentLang];
         chapterGrid.innerHTML = '';
@@ -140,8 +137,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const buildLatinText = (corpus) => { /* Sin cambios en esta función */ };
-    const showAnalysis = (clickedSpan) => { /* Sin cambios en esta función */ };
+    const buildLatinText = (corpus) => {
+        const paragrafusContentusElem = document.getElementById('paragrafus-contentus');
+        paragrafusContentusElem.innerHTML = '';
+        if (!corpus || !corpus.textus) return;
+        corpus.textus.capitula.forEach((versus, versusIndex) => {
+            const p = document.createElement('p');
+            p.className = "mb-6 textum-classicum";
+            p.innerHTML = `<span class="verse-number mr-2">${versus.numerus}. </span>`;
+            versus.orationes.forEach((sententia, sententiaIndex) => {
+                const wordsAndSpaces = sententia.original_lat.split(/(\s+)/);
+                wordsAndSpaces.forEach((word, index) => {
+                    if (!word.trim()) { p.appendChild(document.createTextNode(word)); return; }
+                    const cleanWord = word.replace(/[.,;:?!—]/g, '');
+                    const verbumData = sententia.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === cleanWord);
+                    const span = document.createElement('span');
+                    span.textContent = word;
+                    if (verbumData) {
+                        span.className = 'verbum';
+                        span.dataset.versusIndex = versusIndex;
+                        span.dataset.sententiaIndex = sententiaIndex;
+                        span.dataset.verbumTextus = verbumData.textus;
+                    }
+                    p.appendChild(span);
+                    if (index < wordsAndSpaces.length - 1 && !/^\s+$/.test(wordsAndSpaces[index + 1])) {
+                        p.appendChild(document.createTextNode(' '));
+                    }
+                });
+            });
+            paragrafusContentusElem.appendChild(p);
+        });
+    };
+
+    const showAnalysis = (clickedSpan) => {
+        const { versusIndex, sententiaIndex, verbumTextus } = clickedSpan.dataset;
+        
+        // --- CORRECCIÓN AQUÍ: Se busca en la estructura de libros correcta ---
+        const chapterData = AENEIS_DATA.books[currentBookKey].chapters[activeChapterIndex].corpus;
+
+        const sententiaData = chapterData.textus.capitula[versusIndex].orationes[sententiaIndex];
+        const verbumData = sententiaData.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === verbumTextus.replace(/[.,;:?!—]/g, ''));
+        if (!verbumData) return;
+        const palabraTraducida = verbumData.translatio ? verbumData.translatio[currentLang] : 'N/A';
+        const oratioTraducida = sententiaData.translationes[currentLang] || 'N/A';
+        document.getElementById('marginalia-contentus').innerHTML = `
+            <div class="space-y-4">
+                <div>
+                    <p class="text-2xl textum-classicum font-bold">${verbumData.textus}</p>
+                    <p class="text-lg font-semibold mb-2">${palabraTraducida}</p>
+                    <p class="text-sm"><b>Lema:</b> <i>${verbumData.lemma}</i></p>
+                    <p class="text-sm"><b>Morfología:</b> ${verbumData.morphologia}</p>
+                    <p class="text-sm"><b>Sintaxis:</b> ${verbumData.syntaxis}</p>
+                </div>
+                <hr class="divider" style="margin: 1rem 0;">
+                <details open>
+                    <summary class="font-semibold">${currentLang === 'es' ? 'Traducción del Verso' : 'Verse Translation'}</summary>
+                    <div class="details-content mt-2 text-sm"><p>${oratioTraducida}</p></div>
+                </details>
+            </div>`;
+    };
     
     const handleLanguageChange = (newLang) => {
         if (newLang !== currentLang) {
@@ -173,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector('.page-container').addEventListener('click', e => {
-        // --- NUEVO GESTOR DE EVENTOS PARA CAMBIAR DE LIBRO ---
         const bookBtn = e.target.closest('.book-btn');
         if (bookBtn && bookBtn.dataset.bookKey !== currentBookKey) {
             currentBookKey = bookBtn.dataset.bookKey;
