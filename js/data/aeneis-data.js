@@ -67,8 +67,8 @@ const AENEIS_DATA = {
                 { title: { es: "Versos 668-704: El Augurio de la Llama y la Estrella Fugaz", en: "Verses 668-704: The Omen of the Flame and the Shooting Star", zh: "第 668-704 行：火焰與流星的預兆" }, corpusFile: "js/data/libro2-versos-668-704.js" },
                 { title: { es: "Versos 705-729: Eneas Carga con Anquises", en: "Verses 705-729: Aeneas Carries Anchises", zh: "第 705-729 行：埃涅阿斯背負安奇塞斯" }, corpusFile: "js/data/libro2-versos-705-729.js" },
                 { title: { es: "Versos 730-767: La Pérdida de Creúsa", en: "Verses 730-767: The Loss of Creusa", zh: "第 730-767 行：克瑞烏薩的失蹤" }, corpusFile: "js/data/libro2-versos-730-767.js" },
-                { title: { es: "Versos 768-795: El Fantasma de Creúsa se Aparece a Eneas", en: "Verses 768-795: The Ghost of Creusa Appears to Aeneas", zh: "第 768-795 行：克瑞烏薩的鬼魂向埃涅阿斯顯現" }, corpusFile: "js/data/libro2-versos-768-795.js" },
-                { title: { es: "Versos 796-804: La Partida de Troya", en: "Verses 796-804: The Departure from Troy", zh: "第 796-804 行：離開特洛伊" }, corpusFile: "js/data/libro2-versos-796-804.js" }
+                { title: { es: "Verses 768-795: El Fantasma de Creúsa se Aparece a Eneas", en: "Verses 768-795: The Ghost of Creusa Appears to Aeneas", zh: "第 768-795 行：克瑞烏薩的鬼魂向埃涅阿斯顯現" }, corpusFile: "js/data/libro2-versos-768-795.js" },
+                { title: { es: "Verses 796-804: La Partida de Troya", en: "Verses 796-804: The Departure from Troy", zh: "第 796-804 行：離開特洛伊" }, corpusFile: "js/data/libro2-versos-796-804.js" }
             ]
         }
     }
