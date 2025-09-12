@@ -1,12 +1,3 @@
-const PROMO_DATA = {
-    title: { es: "En la era de la IA, construya un pensamiento profundo e irremplazable", en: "In the Age of AI, Build Irreplaceable Deep Thinking", zh: "在 AI 時代，打造無法被取代的深度思維" },
-    subtitle: { es: "Esta es una revolución del pensamiento dedicada al futuro. Nuestros cursos de lenguas clásicas son la mejor inversión a largo plazo para construir en los jóvenes un juicio crítico y una creatividad fundamentales.", en: "This is a thinking revolution for the future. Our classical language courses are the best long-term investment in building core critical judgment and creativity in young minds.", zh: "這是一場獻給未來的思維革命。我們的古典語言課程，是為孩子建立核心判斷力與創造力的最佳長期投資。" },
-    buttons: {
-        consultation: { es: "Agendar Consulta Gratuita", en: "Schedule a Free Consultation", zh: "預約免費諮詢" },
-        cv: { es: "Ver Currículum del Profesor", en: "View Professor's CV", zh: "查看教授履歷" }
-    }
-};
-
 window.registerChapterData = (id, data) => {
     if (!AENEIS_DATA) return;
     for (const bookKey in AENEIS_DATA.books) {
@@ -82,16 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
             listItem.appendChild(link);
             chapterGrid.appendChild(listItem);
         });
-
-        const promoTitle = document.getElementById('promo-title');
-        const promoSubtitle = document.getElementById('promo-subtitle');
-        const promoButtons = document.getElementById('promo-buttons');
-        promoTitle.textContent = PROMO_DATA.title[currentLang];
-        promoSubtitle.textContent = PROMO_DATA.subtitle[currentLang];
-        promoButtons.innerHTML = `
-            <a href="contact.html" class="promo-btn">${PROMO_DATA.buttons.consultation[currentLang]}</a>
-            <a href="cv.html" class="promo-btn promo-btn-secondary">${PROMO_DATA.buttons.cv[currentLang]}</a>
-        `;
     };
 
     const renderAnalysisView = (chapterIndex) => {
@@ -202,6 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = newLang;
             if (!analysisView.classList.contains('hidden')) {
                 renderAnalysisView(activeChapterIndex);
+                // --- AÑADIDO: Refrescar análisis al cambiar de idioma en la vista de análisis ---
+                const activeWord = document.querySelector('.verbum.activus');
+                if (activeWord) {
+                    showAnalysis(activeWord);
+                }
             } else {
                 renderIndexView();
             }
@@ -211,14 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigateToChapter = (index) => {
         const chapter = AENEIS_DATA.books[currentBookKey].chapters[index];
         if (!chapter || !chapter.corpusFile) return;
-
         const displayChapter = () => {
             renderAnalysisView(index);
             indexView.classList.add('hidden');
             analysisView.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'auto' });
         };
-
         if (chapter.corpus) {
             displayChapter();
         } else {
