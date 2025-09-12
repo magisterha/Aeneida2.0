@@ -1,10 +1,12 @@
 window.registerChapterData = (id, data) => {
     if (!AENEIS_DATA) return;
     for (const bookKey in AENEIS_DATA.books) {
-        const chapter = AENEIS_DATA.books[bookKey].chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
-        if (chapter) {
-            chapter.corpus = data;
-            return;
+        if (AENEIS_DATA.books[bookKey]) {
+            const chapter = AENEIS_DATA.books[bookKey].chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
+            if (chapter) {
+                chapter.corpus = data;
+                return;
+            }
         }
     }
     console.error(`No se pudo encontrar el capítulo para el ID: ${id}`);
@@ -22,11 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sortAllChapters = () => {
         const getStartVerse = (corpusFile) => {
+            if (!corpusFile) return 0;
             const match = corpusFile.match(/-(\d+)-/);
             return match ? parseInt(match[1], 10) : 0;
         };
         for (const bookKey in AENEIS_DATA.books) {
-            AENEIS_DATA.books[bookKey].chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
+            if (AENEIS_DATA.books[bookKey] && AENEIS_DATA.books[bookKey].chapters) {
+                AENEIS_DATA.books[bookKey].chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
+            }
         }
     };
 
