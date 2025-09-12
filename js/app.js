@@ -1,3 +1,4 @@
+
 window.registerChapterData = (id, data) => {
     if (!AENEIS_DATA) return;
     for (const bookKey in AENEIS_DATA.books) {
@@ -59,6 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentBook = AENEIS_DATA.books[currentBookKey];
         subtitleIndex.textContent = currentBook.title[currentLang];
         chapterGrid.innerHTML = '';
+
+        // --- SOLUCIÓN DEFINITIVA AQUÍ ---
+        // 1. Creamos una función para extraer el número inicial del verso desde el nombre del archivo.
+        const getStartVerse = (corpusFile) => {
+            const match = corpusFile.match(/-(\d+)-/);
+            return match ? parseInt(match[1], 10) : 0;
+        };
+
+        // 2. Ordenamos la lista de capítulos ANTES de mostrarla.
+        currentBook.chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
+
+        // 3. Ahora el bucle forEach procesará la lista ya ordenada.
         currentBook.chapters.forEach((chapter, index) => {
             const [title, description] = chapter.title[currentLang].split(': ');
             const listItem = document.createElement('li');
@@ -78,6 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderAnalysisView = (chapterIndex) => {
         activeChapterIndex = chapterIndex;
         const currentBook = AENEIS_DATA.books[currentBookKey];
+        // Asegurarse de que la lista está ordenada también antes de acceder por índice
+        const getStartVerse = (corpusFile) => {
+            const match = corpusFile.match(/-(\d+)-/);
+            return match ? parseInt(match[1], 10) : 0;
+        };
+        currentBook.chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
+        
         const chapter = currentBook.chapters[chapterIndex];
         const corpusData = chapter.corpus;
 
@@ -152,10 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showAnalysis = (clickedSpan) => {
         const { versusIndex, sententiaIndex, verbumTextus } = clickedSpan.dataset;
-        
-        // --- CORRECCIÓN AQUÍ: Se busca en la estructura de libros correcta ---
         const chapterData = AENEIS_DATA.books[currentBookKey].chapters[activeChapterIndex].corpus;
-
         const sententiaData = chapterData.textus.capitula[versusIndex].orationes[sententiaIndex];
         const verbumData = sententiaData.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === verbumTextus.replace(/[.,;:?!—]/g, ''));
         if (!verbumData) return;
@@ -183,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = newLang;
             if (!analysisView.classList.contains('hidden')) {
                 renderAnalysisView(activeChapterIndex);
-                // --- AÑADIDO: Refrescar análisis al cambiar de idioma en la vista de análisis ---
                 const activeWord = document.querySelector('.verbum.activus');
                 if (activeWord) {
                     showAnalysis(activeWord);
