@@ -1,20 +1,27 @@
-window.registerChapterData = (id, data) => {
-    if (!AENEIS_DATA) return;
-    for (const bookKey in AENEIS_DATA.books) {
-        if (AENEIS_DATA.books[bookKey]) {
-            const chapter = AENEIS_DATA.books[bookKey].chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(id));
-            if (chapter) {
-                chapter.corpus = data;
-                return;
-            }
-        }
+window.registerChapterData = (idOrIndex, data) => {
+    if (!AENEIS_DATA) {
+        console.error("AENEIS_DATA no está definido al registrar datos del capítulo.");
+        return;
     }
-    console.error(`No se pudo encontrar el capítulo para el ID: ${id}`);
+
+    let chapter;
+
+    if (typeof idOrIndex === 'number') {
+        chapter = AENEIS_DATA.chapters[idOrIndex];
+    } 
+    else if (typeof idOrIndex === 'string') {
+        chapter = AENEIS_DATA.chapters.find(ch => ch.corpusFile && ch.corpusFile.includes(idOrIndex));
+    }
+
+    if (chapter) {
+        chapter.corpus = data;
+    } else {
+        console.error(`No se pudo encontrar el capítulo para el ID/Índice: ${idOrIndex}`);
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentLang = 'es';
-    let currentBookKey = 'book1';
     const loadedScripts = new Set();
     let activeChapterIndex = -1;
 
@@ -22,25 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const analysisView = document.getElementById('analysis-view');
     const chapterGrid = document.querySelector('.chapter-grid');
 
-    const sortAllChapters = () => {
-        const getStartVerse = (corpusFile) => {
-            if (!corpusFile) return 0;
-            const match = corpusFile.match(/-(\d+)-/);
-            return match ? parseInt(match[1], 10) : 0;
-        };
-        for (const bookKey in AENEIS_DATA.books) {
-            if (AENEIS_DATA.books[bookKey] && AENEIS_DATA.books[bookKey].chapters) {
-                AENEIS_DATA.books[bookKey].chapters.sort((a, b) => getStartVerse(a.corpusFile) - getStartVerse(b.corpusFile));
-            }
-        }
-    };
-
     const loadScript = (url) => {
         return new Promise((resolve, reject) => {
-            if (loadedScripts.has(url)) { resolve(); return; }
+            if (loadedScripts.has(url)) {
+                resolve();
+                return;
+            }
             const script = document.createElement('script');
             script.src = url;
-            script.onload = () => { loadedScripts.add(url); resolve(); };
+            script.onload = () => {
+                loadedScripts.add(url);
+                resolve();
+            };
             script.onerror = () => reject(new Error(`Error al cargar el script ${url}`));
             document.head.appendChild(script);
         });
@@ -55,27 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderIndexView = () => {
+        const langSwitcherIndex = document.getElementById('language-switcher-index');
         const mainTitleIndex = document.getElementById('main-title-index');
         const subtitleIndex = document.getElementById('subtitle-index');
-        const bookSelector = document.getElementById('book-selector');
-
+        buildLangSwitcher(langSwitcherIndex);
         mainTitleIndex.textContent = AENEIS_DATA.mainTitle[currentLang];
-
-        bookSelector.innerHTML = '';
-        Object.keys(AENEIS_DATA.books).forEach(bookKey => {
-            const book = AENEIS_DATA.books[bookKey];
-            const button = document.createElement('button');
-            button.className = `book-btn ${bookKey === currentBookKey ? 'active-book' : ''}`;
-            button.dataset.bookKey = bookKey;
-            button.textContent = book.title[currentLang];
-            bookSelector.appendChild(button);
-        });
-
-        const currentBook = AENEIS_DATA.books[currentBookKey];
-        subtitleIndex.textContent = currentBook.title[currentLang];
+        subtitleIndex.textContent = AENEIS_DATA.subtitle[currentLang];
         chapterGrid.innerHTML = '';
-        
-        currentBook.chapters.forEach((chapter, index) => {
+        AENEIS_DATA.chapters.forEach((chapter, index) => {
             const [title, description] = chapter.title[currentLang].split(': ');
             const listItem = document.createElement('li');
             const link = document.createElement('a');
@@ -93,40 +80,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderAnalysisView = (chapterIndex) => {
         activeChapterIndex = chapterIndex;
-        const currentBook = AENEIS_DATA.books[currentBookKey];
-        const chapter = currentBook.chapters[chapterIndex];
+        const chapter = AENEIS_DATA.chapters[chapterIndex];
         const corpusData = chapter.corpus;
 
+        const langSwitcherAnalysis = document.getElementById('language-switcher-analysis');
         const authorElem = document.getElementById('author');
         const mainTitleAnalysis = document.getElementById('main-title-analysis');
         const subtitleAnalysis = document.getElementById('subtitle-analysis');
         const contextTitleElem = document.getElementById('context-title');
         const contextContentElem = document.getElementById('context-content');
+        const textTitleElem = document.getElementById('text-title');
+        const analysisTitleElem = document.getElementById('analysis-title');
         
-        buildLangSwitcher(document.getElementById('language-switcher-analysis'));
+        const prevBtn = document.getElementById('btn-prev-chapter');
+        const nextBtn = document.getElementById('btn-next-chapter');
+
+        buildLangSwitcher(langSwitcherAnalysis);
         authorElem.textContent = AENEIS_DATA.author;
-        mainTitleAnalysis.textContent = AENEIS_DATA.mainTitle[currentLang] + " - " + currentBook.title[currentLang];
+        mainTitleAnalysis.textContent = AENEIS_DATA.mainTitle[currentLang];
         subtitleAnalysis.textContent = chapter.title[currentLang];
         
-        contextTitleElem.textContent = corpusData?.context?.[currentLang]?.title || '';
-        contextContentElem.textContent = corpusData?.context?.[currentLang]?.content || '';
+        contextTitleElem.textContent = '';
+        contextContentElem.textContent = '';
+        if (corpusData && corpusData.context) {
+            contextTitleElem.textContent = corpusData.context[currentLang]?.title || '';
+            contextContentElem.textContent = corpusData.context[currentLang]?.content || '';
+        }
 
-        document.getElementById('text-title').textContent = currentLang === 'es' ? 'Texto y Análisis' : (currentLang === 'en' ? 'Text and Analysis' : '文本與分析');
-        document.getElementById('analysis-title').textContent = currentLang === 'es' ? 'Análisis' : (currentLang === 'en' ? 'Analysis' : '分析');
+        textTitleElem.textContent = currentLang === 'es' ? 'Texto y Análisis' : (currentLang === 'en' ? 'Text and Analysis' : '文本與分析');
+        analysisTitleElem.textContent = currentLang === 'es' ? 'Análisis' : (currentLang === 'en' ? 'Analysis' : '分析');
 
         buildLatinText(corpusData);
         document.getElementById('marginalia-contentus').innerHTML = `<p class="text-[#6d4c35] font-['IM_Fell_English']">${currentLang === 'es' ? 'Haz clic en una palabra para ver su análisis.' : 'Click on a word to see its analysis.'}</p>`;
 
-        const prevBtn = document.getElementById('btn-prev-chapter');
-        const nextBtn = document.getElementById('btn-next-chapter');
-        
         if (chapterIndex > 0) {
             prevBtn.style.visibility = 'visible';
             prevBtn.dataset.targetIndex = chapterIndex - 1;
         } else {
             prevBtn.style.visibility = 'hidden';
         }
-        if (chapterIndex < currentBook.chapters.length - 1) {
+        if (chapterIndex < AENEIS_DATA.chapters.length - 1) {
             nextBtn.style.visibility = 'visible';
             nextBtn.dataset.targetIndex = chapterIndex + 1;
         } else {
@@ -168,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showAnalysis = (clickedSpan) => {
         const { versusIndex, sententiaIndex, verbumTextus } = clickedSpan.dataset;
-        const chapterData = AENEIS_DATA.books[currentBookKey].chapters[activeChapterIndex].corpus;
+        const chapterData = AENEIS_DATA.chapters[activeChapterIndex].corpus;
         const sententiaData = chapterData.textus.capitula[versusIndex].orationes[sententiaIndex];
         const verbumData = sententiaData.verba.find(v => v.textus.replace(/[.,;:?!—]/g, '') === verbumTextus.replace(/[.,;:?!—]/g, ''));
         if (!verbumData) return;
@@ -190,58 +183,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 </details>
             </div>`;
     };
-    
+
     const handleLanguageChange = (newLang) => {
         if (newLang !== currentLang) {
             currentLang = newLang;
-            if (!analysisView.classList.contains('hidden')) {
-                renderAnalysisView(activeChapterIndex);
-                const activeWord = document.querySelector('.verbum.activus');
-                if (activeWord) {
-                    showAnalysis(activeWord);
-                }
-            } else {
+            if (!indexView.classList.contains('hidden')) {
                 renderIndexView();
+            } else {
+                if (activeChapterIndex !== -1) {
+                    renderAnalysisView(activeChapterIndex);
+                    const activeWord = document.querySelector('.verbum.activus');
+                    if (activeWord) showAnalysis(activeWord);
+                }
             }
         }
     };
     
     const navigateToChapter = (index) => {
-        const chapter = AENEIS_DATA.books[currentBookKey].chapters[index];
-        if (!chapter || !chapter.corpusFile) return;
-        const displayChapter = () => {
+        const chapter = AENEIS_DATA.chapters[index];
+        if (!chapter) return;
+
+        if (chapter.corpus) {
             renderAnalysisView(index);
             indexView.classList.add('hidden');
             analysisView.classList.remove('hidden');
+            // --- MODIFICACIÓN AQUÍ ---
             window.scrollTo({ top: 0, behavior: 'auto' });
-        };
-        if (chapter.corpus) {
-            displayChapter();
-        } else {
-            loadScript(chapter.corpusFile).then(displayChapter).catch(console.error);
+        } else if (chapter.corpusFile) {
+            loadScript(chapter.corpusFile)
+                .then(() => {
+                    renderAnalysisView(index);
+                    indexView.classList.add('hidden');
+                    analysisView.classList.remove('hidden');
+                    // --- MODIFICACIÓN AQUÍ ---
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Error al cargar los datos del capítulo.");
+                });
         }
     };
 
     document.querySelector('.page-container').addEventListener('click', e => {
-        const bookBtn = e.target.closest('.book-btn');
-        if (bookBtn && bookBtn.dataset.bookKey !== currentBookKey) {
-            currentBookKey = bookBtn.dataset.bookKey;
-            renderIndexView();
-        }
-        
         const langBtn = e.target.closest('.lang-btn');
-        if (langBtn) handleLanguageChange(langBtn.dataset.lang);
+        if (langBtn) {
+            handleLanguageChange(langBtn.dataset.lang);
+        }
 
         const chapterLink = e.target.closest('.chapter-grid a');
-        if (chapterLink?.dataset.index) {
+        if (chapterLink && chapterLink.dataset.index) {
             e.preventDefault();
-            navigateToChapter(parseInt(chapterLink.dataset.index, 10));
+            const index = parseInt(chapterLink.dataset.index, 10);
+            navigateToChapter(index);
         }
 
         const navLink = e.target.closest('#btn-prev-chapter, #btn-next-chapter');
-        if (navLink?.dataset.targetIndex) {
+        if (navLink && navLink.dataset.targetIndex) {
             e.preventDefault();
-            navigateToChapter(parseInt(navLink.dataset.targetIndex, 10));
+            const index = parseInt(navLink.dataset.targetIndex, 10);
+            navigateToChapter(index);
         }
 
         const backButton = e.target.closest('#btn-back-to-index');
@@ -254,12 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const verbum = e.target.closest('.verbum');
         if (verbum) {
-            document.querySelectorAll('.verbum.activus').forEach(el => el.classList.remove('activus'));
+            document.querySelectorAll('.verbum').forEach(el => el.classList.remove('activus'));
             verbum.classList.add('activus');
             showAnalysis(verbum);
         }
     });
 
-    sortAllChapters();
     renderIndexView();
 });
