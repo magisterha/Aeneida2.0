@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virgilio, Aeneis - Liber I (Interactivo)</title>
+    <title>Virgilio, Aeneis - Interactivo</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,12 +41,23 @@
         .lang-btn { flex-grow: 1; padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.875rem; }
         .lang-btn:hover { background-color: #e9dcc9; }
         .lang-btn.active-lang { background-color: #6d4c35; color: #fdf5e6; border-color: #6d4c35; }
-
-        /* Estilos para la nueva navegación inferior */
         .navigation-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
         .navigation-footer .lang-btn { flex-grow: 0; width: auto; padding: 0.5rem 1.5rem; }
         .nav-btn { padding: 0.5rem; border: 1px solid #d1c4b0; background-color: #f5eadb; color: #6d4c35; border-radius: 0.25rem; cursor: pointer; font-weight: 600; text-decoration: none; font-size: 0.875rem; }
         .nav-btn:hover { background-color: #e9dcc9; }
+        .promo-container { border-top: 1px solid #d1c4b0; margin-top: 4rem; padding-top: 2.5rem; text-align: center; }
+        .promo-title { font-family: 'IM Fell English', 'Georgia', serif; font-size: 2.25rem; color: #3d2c1d; }
+        .promo-subtitle { font-size: 1.1rem; color: #6d4c35; max-width: 600px; margin: 1rem auto 2rem auto; line-height: 1.6; }
+        .promo-buttons-container { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .promo-btn { text-decoration: none; padding: 0.75rem 1.5rem; border: 1px solid transparent; background-color: #4a5568; color: #fdf5e6; border-radius: 0.25rem; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 1rem; }
+        .promo-btn:hover { background-color: #2d3748; }
+        .promo-btn-secondary { background-color: transparent; border-color: #4a5568; color: #4a5568; }
+        .promo-btn-secondary:hover { background-color: #f0e6d8; color: #2d3748; }
+
+        /* --- Estilos para la nueva selección de libro --- */
+        .book-selector { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #d1c4b0; padding-bottom: 2rem; }
+        .book-btn { font-family: 'IM Fell English', 'Georgia', serif; font-size: 1.25rem; padding: 0.5rem 1.5rem; background-color: transparent; color: #8c785c; border: none; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; }
+        .book-btn.active-book { color: #6d4c35; font-weight: bold; border-bottom-color: #6d4c35; }
     </style>
 </head>
 <body>
@@ -56,8 +67,17 @@
             <div class="index-container">
                 <div id="language-switcher-index" class="language-switcher"></div>
                 <h1 id="main-title-index"></h1>
+                
+                <div id="book-selector" class="book-selector"></div>
+                
                 <h2 id="subtitle-index"></h2>
                 <ul class="chapter-grid"></ul>
+
+                <section id="promo-section" class="promo-container">
+                    <h3 id="promo-title" class="promo-title"></h3>
+                    <p id="promo-subtitle" class="promo-subtitle"></p>
+                    <div id="promo-buttons" class="promo-buttons-container"></div>
+                </section>
             </div>
         </div>
 
@@ -102,7 +122,7 @@
         </div>
     </div>
 
-    <script src="js/data/libro1-capitulos.js"></script>
+    <script src="js/data/aeneis-data.js"></script> 
     <script src="js/app.js"></script>
 </body>
 </html>
